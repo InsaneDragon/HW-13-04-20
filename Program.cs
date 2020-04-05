@@ -19,8 +19,8 @@ namespace Classes2
             Console.WriteLine("6.Euro to Somoni");
             Console.Write("Choose number from list above:");
             int Currency = int.Parse(Console.ReadLine());//из какой валюты в какую делать конвертацию
-            double after=Classes2.Program.Currency(money,Currency,currentCurrency);//получаю зарплату
-            Console.WriteLine($"Your Money:{after}");
+            double after=Classes2.Program.Currency(money,Currency,currentCurrency);
+            Console.WriteLine($"Your Money:{after}");// показываю деньги после конвертации
             System.Console.WriteLine("////////////////////////////////////////////////////3");
             System.Console.Write("Write Employee Name:");//получаю имя
             string Name=Console.ReadLine();
@@ -37,7 +37,7 @@ namespace Classes2
             int Profession=int.Parse(Console.ReadLine());
             System.Console.WriteLine("Write Employees Experience(How many year he is working):");
             int Experience=int.Parse(Console.ReadLine());//получаю опыт работы
-            double Salary=Classes2.Program.Salary(Profession);
+            double Salary=Classes2.Program.Salary(Profession);//получаю зарплату
             Salary+=Experience*1000;//прибавляю к зарплате стаж за каждй год работы плюс 1000
             string activity=listofprofessions[Profession-1];
             Employee Human=new Employee(){Name=Name,SurName=SurName,Profession=activity,Expirience=Experience};
