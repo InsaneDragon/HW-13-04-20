@@ -19,7 +19,7 @@ namespace Classes2
             Console.WriteLine("6.Euro to Somoni");
             Console.Write("Choose number from list above:");
             int Currency = int.Parse(Console.ReadLine());//из какой валюты в какую делать конвертацию
-            double after=Classes2.Program.Currency(money,Currency,currentCurrency);
+            double after=Classes2.Converter.Currency(money,Currency,currentCurrency);
             Console.WriteLine($"Your Money:{after}");// показываю деньги после конвертации
             System.Console.WriteLine("////////////////////////////////////////////////////3");
             System.Console.Write("Write Employee Name:");//получаю имя
@@ -44,20 +44,7 @@ namespace Classes2
             double Taxes=Salary*0.13;//Налог 13%
             System.Console.WriteLine($"Name:{Human.Name} SurName:{Human.SurName} Profession:{Human.Profession} Experience:{Human.Expirience} Salary:{Salary} Tax Levy:{Taxes}");//показываю результат
         }
-        public static double Currency(double money, int Currency,Converter Current)//метод для обмена валют
-        {
-            double after=0;
-            switch (Currency)
-            {
-                case 1: after=money*Current.dollar;break;
-                case 2: after= money*Current.ruble;break;
-                case 3: after= money*Current.euro;break;
-                case 4: after= money*0.098;break;
-                case 5: after= money*7.48;break;
-                case 6: after= money*0.91;break;
-            }
-            return after;
-        }
+        
         public static double Salary(int Profession)//проверяю зарплату по професии
         {
             double Money=0;
@@ -78,6 +65,21 @@ namespace Classes2
         public double euro { get; set; }
         public double ruble { get; set; }
         public Converter(double usd, double eur, double rub) { dollar = usd; euro = eur; ruble = rub; }
+
+        public static double Currency(double money, int Currency,Converter Current)//метод для обмена валют
+        {
+            double after=0;
+            switch (Currency)
+            {
+                case 1: after=money*Current.dollar;break;
+                case 2: after= money*Current.ruble;break;
+                case 3: after= money*Current.euro;break;
+                case 4: after= money*0.098;break;
+                case 5: after= money*7.48;break;
+                case 6: after= money*0.91;break;
+            }
+            return after;
+        }
     }
     public class Employee ///Создал класс Работник
     {
