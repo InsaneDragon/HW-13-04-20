@@ -11,7 +11,12 @@ namespace Classes2
             int[] b = new int[8] { 1, 2, 3, 4, 5, 6, 7, 7 };
             int n = ArrayHelper.Pop(ref b);
             System.Console.WriteLine(n);
-            
+            n = ArrayHelper.Push(ref b, 2);
+            System.Console.WriteLine(n);
+            n = ArrayHelper.Shift(ref b);
+            System.Console.WriteLine(n);
+            n = ArrayHelper.UnShift(ref b, 2);
+            System.Console.WriteLine(n);
         }
         public class ArrayHelper
         {
