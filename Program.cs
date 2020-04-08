@@ -111,6 +111,38 @@ namespace Classes2
                 list = b;
                 return a;
             }
+            public static int UnShift(ref int[] list, int num)
+            {
+                int[] b = new int[list.Length + 1];
+                b[0] = num;
+                for (int i = 1; i < list.Length; i++) b[i] = list[i - 1];
+                list = b;
+                return b.Length;
+            }
+            public static double UnShift(ref double[] list, int num)
+            {
+                double[] b = new double[list.Length + 1];
+                b[0] = num;
+                for (int i = 1; i < list.Length; i++) b[i] = list[i];
+                list = b;
+                return b.Length;
+            }
+            public static decimal UnShift(ref decimal[] list, int num)
+            {
+                decimal[] b = new decimal[list.Length + 1];
+                b[0] = num;
+                for (int i = 1; i < list.Length; i++) b[i] = list[i];
+                list = b;
+                return b.Length;
+            }
+            public static float UnShift(ref float[] list, int num)
+            {
+                float[] b = new float[list.Length + 1];
+                b[0] = num;
+                for (int i = 1; i < list.Length; i++) b[i] = list[i];
+                list = b;
+                return b.Length;
+            }
         }
     }
 }
