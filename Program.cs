@@ -8,146 +8,112 @@ namespace Classes2
     {
         static void Main(string[] args)
         {
-            int[] b = new int[8] { 1, 2, 3, 4, 5, 6, 7, 7 };
-            int n = ArrayHelper.Pop(ref b);
-            System.Console.WriteLine(n);
-            n = ArrayHelper.Push(ref b, 2);
-            System.Console.WriteLine(n);
-            n = ArrayHelper.Shift(ref b);
-            System.Console.WriteLine(n);
-            n = ArrayHelper.UnShift(ref b, 2);
-            System.Console.WriteLine(n);
+            Converter currentCurrency = new Converter(10.22, 11.4, 0.13);//отправляю классу курсы валют
+            double money = double.Parse(Console.ReadLine());//получаю количество денег 
+            int Currency = Converter.CurrencyAsk();
+            double after = Classes2.Converter.Currency(money, Currency, currentCurrency);
+            Console.WriteLine($"Your Money:{after}");// показываю деньги после конвертации
+            System.Console.WriteLine("////////////////////////////////////////////////////3");
+            var listName = Converter.AskName();
+            int Profession = Converter.GetProfession();
+            int Experience = Converter.GetWorkExperience();
+            double Salary = Classes2.Program.Salary(Profession);//получаю зарплату
+            Salary += Experience * 1000;//прибавляю к зарплате стаж за каждй год работы плюс 1000
+            string Activity=Converter.GetActivity(Profession);
+            Employee Human = new Employee() { Name = listName[0], SurName = listName[1], Profession = Activity, Expirience = Experience };
+            double Taxes = Salary * 0.13;//Налог 13%
+            System.Console.WriteLine($"Name:{Human.Name} SurName:{Human.SurName} Profession:{Human.Profession} Experience:{Human.Expirience} Salary:{Salary} Tax Levy:{Taxes}");//показываю результат
         }
-        public class ArrayHelper
+
+        public static double Salary(int Profession)//проверяю зарплату по професии
         {
-            public static int Pop(ref int[] list)
+            double Money = 0;
+            switch (Profession)
             {
-                int a = list[list.Length - 1];
-                int[] b = new int[list.Length - 1];
-                for (int i = 0; i < list.Length - 1; i++) b[i] = list[i];
-                list = b;
-                return a;
+                case 1: Money = 1200; break;
+                case 2: Money = 24000; break;
+                case 3: Money = 2400; break;
+                case 4: Money = 3600; break;
             }
-            public static double Pop(ref double[] list)
-            {
-                double a = list[list.Length - 1];
-                double[] b = new double[list.Length - 1];
-                for (int i = 0; i < list.Length - 1; i++) b[i] = list[i];
-                list = b;
-                return a;
-            }
-            public static decimal Pop(ref decimal[] list)
-            {
-                decimal a = list[list.Length - 1];
-                decimal[] b = new decimal[list.Length - 1];
-                for (int i = 0; i < list.Length - 1; i++) b[i] = list[i];
-                list = b;
-                return a;
-            }
-            public static float Pop(ref float[] list)
-            {
-                float a = list[list.Length - 1];
-                float[] b = new float[list.Length - 1];
-                for (int i = 0; i < list.Length - 1; i++) b[i] = list[i];
-                list = b;
-                return a;
-            }
-            public static int Push(ref int[] list, int num)
-            {
-                int[] b = new int[list.Length + 1];
-                for (int i = 0; i < list.Length; i++) b[i] = list[i];
-                b[b.Length - 1] = num;
-                list = b;
-                return b.Length;
-            }
-            public static int Push(ref double[] list, int num)
-            {
-                double[] b = new double[list.Length + 1];
-                for (int i = 0; i < list.Length; i++) b[i] = list[i];
-                b[b.Length - 1] = num;
-                list = b;
-                return b.Length;
-            }
-            public static decimal Push(ref decimal[] list, int num)
-            {
-                decimal[] b = new decimal[list.Length + 1];
-                for (int i = 0; i < list.Length; i++) b[i] = list[i];
-                b[b.Length - 1] = num;
-                list = b;
-                return b.Length;
-            }
-            public static float Push(ref float[] list, int num)
-            {
-                float[] b = new float[list.Length + 1];
-                for (int i = 0; i < list.Length; i++) b[i] = list[i];
-                b[b.Length - 1] = num;
-                list = b;
-                return b.Length;
-            }
-            public static int Shift(ref int[] list)
-            {
-                int a = list[0];
-                int[] b = new int[list.Length - 1];
-                for (int i = 1; i < list.Length - 1; i++) b[i] = list[i];
-                list = b;
-                return a;
-            }
-            public static double Shift(ref double[] list)
-            {
-                double a = list[0];
-                double[] b = new double[list.Length - 1];
-                for (int i = 1; i < list.Length - 1; i++) b[i] = list[i];
-                list = b;
-                return a;
-            }
-            public static decimal Shift(ref decimal[] list)
-            {
-                decimal a = list[0];
-                decimal[] b = new decimal[list.Length - 1];
-                for (int i = 1; i < list.Length - 1; i++) b[i] = list[i];
-                list = b;
-                return a;
-            }
-            public static float Shift(ref float[] list)
-            {
-                float a = list[0];
-                float[] b = new float[list.Length - 1];
-                for (int i = 1; i < list.Length - 1; i++) b[i] = list[i];
-                list = b;
-                return a;
-            }
-            public static int UnShift(ref int[] list, int num)
-            {
-                int[] b = new int[list.Length + 1];
-                b[0] = num;
-                for (int i = 1; i < list.Length; i++) b[i] = list[i - 1];
-                list = b;
-                return b.Length;
-            }
-            public static double UnShift(ref double[] list, int num)
-            {
-                double[] b = new double[list.Length + 1];
-                b[0] = num;
-                for (int i = 1; i < list.Length; i++) b[i] = list[i];
-                list = b;
-                return b.Length;
-            }
-            public static decimal UnShift(ref decimal[] list, int num)
-            {
-                decimal[] b = new decimal[list.Length + 1];
-                b[0] = num;
-                for (int i = 1; i < list.Length; i++) b[i] = list[i];
-                list = b;
-                return b.Length;
-            }
-            public static float UnShift(ref float[] list, int num)
-            {
-                float[] b = new float[list.Length + 1];
-                b[0] = num;
-                for (int i = 1; i < list.Length; i++) b[i] = list[i];
-                list = b;
-                return b.Length;
-            }
+            return Money;
         }
+    }
+
+    public class Converter //класс с курсами валют
+    {
+        public static string GetActivity(int Profession)
+        {
+            List<string> listofprofessions = new List<string>() { "teacher", "programmer", "OfficeEmployee", "Manager" };
+            string activity = listofprofessions[Profession];
+            return activity;
+        }
+        public static int GetWorkExperience()
+        {
+            System.Console.WriteLine("Write Employees Experience(How many year he is working):");
+            int Experience = int.Parse(Console.ReadLine());//получаю опыт работы
+            return Experience;
+        }
+        public static int GetProfession()
+        {
+            List<string> listofprofessions = new List<string>() { "teacher", "programmer", "OfficeEmployee", "Manager" };
+            int count = 1;
+            foreach (var item in listofprofessions)//показываю все доступные профессии из листа 
+            {
+                System.Console.WriteLine($"{count}. {item}");
+                count++;
+            }
+            System.Console.Write("Choose Profession from list above:");
+            int Profession = int.Parse(Console.ReadLine());
+            return Profession;
+        }
+        public static List<string> AskName()
+        {
+            System.Console.Write("Write Employee Name:");//получаю имя
+            string Name = Console.ReadLine();
+            System.Console.Write("Write Employee Surname:");//получаю фамилию
+            string SurName = Console.ReadLine();
+            List<string> list = new List<string>() { Name, SurName };
+            return list;
+        }
+        public static int CurrencyAsk()
+        {
+            Console.Write("Write How much money you want to Convert:");
+            Console.WriteLine("1.Somoni to USD");
+            Console.WriteLine("2.Somoni to Ruble");
+            Console.WriteLine("3.Somoni to Euro");
+            Console.WriteLine("4.USD to Somoni");
+            Console.WriteLine("5.Ruble to Somoni");
+            Console.WriteLine("6.Euro to Somoni");
+            Console.Write("Choose number from list above:");
+            int Currency = int.Parse(Console.ReadLine());//из какой валюты в какую делать конвертацию
+            return Currency;
+        }
+        public double som { get; set; }
+        public double dollar { get; set; }
+        public double euro { get; set; }
+        public double ruble { get; set; }
+        public Converter(double usd, double eur, double rub) { dollar = usd; euro = eur; ruble = rub; }
+
+        public static double Currency(double money, int Currency, Converter Current)//метод для обмена валют
+        {
+            double after = 0;
+            switch (Currency)
+            {
+                case 1: after = money * Current.dollar; break;
+                case 2: after = money * Current.ruble; break;
+                case 3: after = money * Current.euro; break;
+                case 4: after = money * 0.098; break;
+                case 5: after = money * 7.48; break;
+                case 6: after = money * 0.91; break;
+            }
+            return after;
+        }
+    }
+    public class Employee ///Создал класс Работник
+    {
+        public string Name { get; set; }
+        public string SurName { get; set; }
+        public string Profession { get; set; }
+        public int Expirience { get; set; }
     }
 }
