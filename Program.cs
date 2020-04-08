@@ -9,6 +9,7 @@ namespace Classes2
         static void Main(string[] args)
         {
             Converter currentCurrency = new Converter(10.22, 11.4, 0.13);//отправляю классу курсы валют
+            Console.WriteLine("Write How much money you want to Convert:");
             double money = double.Parse(Console.ReadLine());//получаю количество денег 
             int Currency = Converter.CurrencyAsk();
             double after = Classes2.Converter.Currency(money, Currency, currentCurrency);
@@ -77,7 +78,6 @@ namespace Classes2
         }
         public static int CurrencyAsk()
         {
-            Console.Write("Write How much money you want to Convert:");
             Console.WriteLine("1.Somoni to USD");
             Console.WriteLine("2.Somoni to Ruble");
             Console.WriteLine("3.Somoni to Euro");
