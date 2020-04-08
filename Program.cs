@@ -79,6 +79,38 @@ namespace Classes2
                 list = b;
                 return b.Length;
             }
+            public static int Shift(ref int[] list)
+            {
+                int a = list[0];
+                int[] b = new int[list.Length - 1];
+                for (int i = 1; i < list.Length - 1; i++) b[i] = list[i];
+                list = b;
+                return a;
+            }
+            public static double Shift(ref double[] list)
+            {
+                double a = list[0];
+                double[] b = new double[list.Length - 1];
+                for (int i = 1; i < list.Length - 1; i++) b[i] = list[i];
+                list = b;
+                return a;
+            }
+            public static decimal Shift(ref decimal[] list)
+            {
+                decimal a = list[0];
+                decimal[] b = new decimal[list.Length - 1];
+                for (int i = 1; i < list.Length - 1; i++) b[i] = list[i];
+                list = b;
+                return a;
+            }
+            public static float Shift(ref float[] list)
+            {
+                float a = list[0];
+                float[] b = new float[list.Length - 1];
+                for (int i = 1; i < list.Length - 1; i++) b[i] = list[i];
+                list = b;
+                return a;
+            }
         }
     }
 }
