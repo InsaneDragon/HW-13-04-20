@@ -39,7 +39,7 @@ namespace Classes2
         }
     }
 
-    public class Converter //класс с курсами валют
+    public class Converter ///класс с курсами валют
     {
         public static string GetActivity(int Profession)
         {
