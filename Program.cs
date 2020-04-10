@@ -1,119 +1,174 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Classes2
+namespace Workers
 {
     class Program
     {
-        static void Main(string[] args)
+        public static void Main()
         {
-            Converter currentCurrency = new Converter(10.22, 11.4, 0.13);//отправляю классу курсы валют
-            Console.WriteLine("Write How much money you want to Convert:");
-            double money = double.Parse(Console.ReadLine());//получаю количество денег 
-            int Currency = Converter.CurrencyAsk();
-            double after = Classes2.Converter.Currency(money, Currency, currentCurrency);
-            Console.WriteLine($"Your Money:{after}");// показываю деньги после конвертации
-            System.Console.WriteLine("////////////////////////////////////////////////////3");
-            var listName = Converter.AskName();
-            int Profession = Converter.GetProfession();
-            int Experience = Converter.GetWorkExperience();
-            double Salary = Classes2.Program.Salary(Profession);//получаю зарплату
-            Salary += Experience * 1000;//прибавляю к зарплате стаж за каждй год работы плюс 1000
-            string Activity=Converter.GetActivity(Profession);
-            Employee Human = new Employee() { Name = listName[0], SurName = listName[1], Profession = Activity, Expirience = Experience };
-            double Taxes = Salary * 0.13;//Налог 13%
-            System.Console.WriteLine($"Name:{Human.Name} SurName:{Human.SurName} Profession:{Human.Profession} Experience:{Human.Expirience} Salary:{Salary} Tax Levy:{Taxes}");//показываю результат
-        }
-
-        public static double Salary(int Profession)//проверяю зарплату по професии
-        {
-            double Money = 0;
-            switch (Profession)
+            int User = DocumentWorker.ChooseUser();
+            int Current = UserConfigure(User);
+            DocumentWorker Worker = new DocumentWorker();
+            if (Current == 1) { Worker = new ProDocumentWorker(); }
+            if (Current == 2) { Worker = new ExpertDocumentWorker(); }
+            if (Current == 3) { Worker = new DocumentWorker(); }
+            Options(Worker);
+            System.Console.WriteLine("////////////////////////////////////3");
+            IPlayable p = new Player();
+            IRecodable i = new Player();
+            bool op = false;
+            while (op == false)
             {
-                case 1: Money = 1200; break;
-                case 2: Money = 24000; break;
-                case 3: Money = 2400; break;
-                case 4: Money = 3600; break;
+                System.Console.WriteLine("1.Play");
+                System.Console.WriteLine("2.Pause");
+                System.Console.WriteLine("3.Stop");
+                System.Console.WriteLine("4.Record");
+                int num = int.Parse(Console.ReadLine());
+                if (num == 1) { p.Play(); }
+                if (num == 2) { p.Pause(); }
+                if (num == 3) { p.Stop(); }
+                if (num == 4) { i.Record(); }
             }
-            return Money;
+        }
+        public static void Options(DocumentWorker Worker)
+        {
+            bool quit = false;
+            while (quit == false)
+            {
+                System.Console.WriteLine("1.Open Document");
+                System.Console.WriteLine("2.Edit Document");
+                System.Console.WriteLine("3.Save Document");
+                System.Console.WriteLine("4.Quit");
+                System.Console.Write("Choose number from list above:");
+                int Choise = int.Parse(Console.ReadLine());
+                if (Choise == 1) { Worker.OpenDocument(); }
+                if (Choise == 2) { Worker.EditDocument(); }
+                if (Choise == 3) { Worker.SaveDocument(); }
+                if (Choise == 4) { quit = true; }
+            }
+        }
+        public static int UserConfigure(int User)
+        {
+            int position = 0;
+            switch (User)
+            {
+                case 1:
+                    {
+                        System.Console.Write("Write your promocode:");
+                        string promo = Console.ReadLine();
+                        if (ProDocumentWorker.pro == promo)
+                        {
+                            position = 1;
+                            System.Console.WriteLine("Your promocode is correct! So you entered to pro account");
+
+                        }
+                        else
+                        {
+                            System.Console.WriteLine("Your promocode is incorrect! So you entere to free account");
+                        }
+                    }
+                    break;
+                case 2:
+                    {
+                        System.Console.Write("Write your promocode:");
+                        string promo = Console.ReadLine();
+                        if (ProDocumentWorker.pro == promo)
+                        {
+                            position = 2;
+                            System.Console.WriteLine("Your promocode is correct! So you entered to exp account");
+
+                        }
+                        else
+                        {
+                            System.Console.WriteLine("Your promocode is incorrect! So you entere to free account");
+                        }
+                    }
+                    break;
+                case 3:
+                    {
+                        position = 3;
+                        System.Console.WriteLine("You entered to free account");
+                    }
+                    break;
+            }
+            return position;
         }
     }
-
-    public class Converter ///класс с курсами валют
+    class DocumentWorker
     {
-        public static string GetActivity(int Profession)
+        public static int ChooseUser()
         {
-            List<string> listofprofessions = new List<string>() { "teacher", "programmer", "OfficeEmployee", "Manager" };
-            string activity = listofprofessions[Profession];
-            return activity;
+            System.Console.WriteLine("1.Write promocode for professional");
+            System.Console.WriteLine("2.Write promocode for expert");
+            System.Console.WriteLine("3.Enter as Free User");
+            System.Console.Write("Choose number from list above:");
+            int enter = int.Parse(Console.ReadLine());
+            return enter;
         }
-        public static int GetWorkExperience()
+        public virtual void OpenDocument()
         {
-            System.Console.WriteLine("Write Employees Experience(How many year he is working):");
-            int Experience = int.Parse(Console.ReadLine());//получаю опыт работы
-            return Experience;
+            System.Console.WriteLine("Документ открыт");
         }
-        public static int GetProfession()
+        public virtual void EditDocument()
         {
-            List<string> listofprofessions = new List<string>() { "teacher", "programmer", "OfficeEmployee", "Manager" };
-            int count = 1;
-            foreach (var item in listofprofessions)//показываю все доступные профессии из листа 
-            {
-                System.Console.WriteLine($"{count}. {item}");
-                count++;
-            }
-            System.Console.Write("Choose Profession from list above:");
-            int Profession = int.Parse(Console.ReadLine());
-            return Profession;
+            System.Console.WriteLine("Редактирование документа доступно в версии про");
         }
-        public static List<string> AskName()
+        public virtual void SaveDocument()
         {
-            System.Console.Write("Write Employee Name:");//получаю имя
-            string Name = Console.ReadLine();
-            System.Console.Write("Write Employee Surname:");//получаю фамилию
-            string SurName = Console.ReadLine();
-            List<string> list = new List<string>() { Name, SurName };
-            return list;
-        }
-        public static int CurrencyAsk()
-        {
-            Console.WriteLine("1.Somoni to USD");
-            Console.WriteLine("2.Somoni to Ruble");
-            Console.WriteLine("3.Somoni to Euro");
-            Console.WriteLine("4.USD to Somoni");
-            Console.WriteLine("5.Ruble to Somoni");
-            Console.WriteLine("6.Euro to Somoni");
-            Console.Write("Choose number from list above:");
-            int Currency = int.Parse(Console.ReadLine());//из какой валюты в какую делать конвертацию
-            return Currency;
-        }
-        public double som { get; set; }
-        public double dollar { get; set; }
-        public double euro { get; set; }
-        public double ruble { get; set; }
-        public Converter(double usd, double eur, double rub) { dollar = usd; euro = eur; ruble = rub; }
-
-        public static double Currency(double money, int Currency, Converter Current)//метод для обмена валют
-        {
-            double after = 0;
-            switch (Currency)
-            {
-                case 1: after = money * Current.dollar; break;
-                case 2: after = money * Current.ruble; break;
-                case 3: after = money * Current.euro; break;
-                case 4: after = money * 0.098; break;
-                case 5: after = money * 7.48; break;
-                case 6: after = money * 0.91; break;
-            }
-            return after;
+            System.Console.WriteLine("Сохранение документа доступно в версии про");
         }
     }
-    public class Employee ///Создал класс Работник
+    class ProDocumentWorker : DocumentWorker
     {
-        public string Name { get; set; }
-        public string SurName { get; set; }
-        public string Profession { get; set; }
-        public int Expirience { get; set; }
+        public static string pro { get { return "pro"; } }
+        public override void EditDocument()
+        {
+            System.Console.WriteLine("Документ отредактирован");
+        }
+        public override void SaveDocument()
+        {
+            System.Console.WriteLine("Документ сохранён в старом формате,сохранение в остальных форматах доступно в версии про");
+        }
+    }
+    class ExpertDocumentWorker : ProDocumentWorker
+    {
+        public string exp { get { return "exp"; } }
+        public override void SaveDocument()
+        {
+            System.Console.WriteLine("Документ сохранён в новом формате");
+        }
+    }
+    interface IPlayable
+    {
+        void Play()
+        {
+            System.Console.WriteLine("Play");
+        }
+        void Pause()
+        {
+            System.Console.WriteLine("Pause");
+        }
+        void Stop()
+        {
+            System.Console.WriteLine("Stop");
+        }
+    }
+    interface IRecodable
+    {
+        void Record()
+        {
+            System.Console.WriteLine("Record");
+        }
+        void Pause()
+        {
+            System.Console.WriteLine("Pause");
+        }
+        void Stop()
+        {
+            System.Console.WriteLine("Stop");
+        }
+    }
+    class Player : IPlayable, IRecodable
+    {
+
     }
 }
